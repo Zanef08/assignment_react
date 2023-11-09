@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function Login() {
+const Login = ({ onLogin }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -15,8 +15,11 @@ function Login() {
                 const users = response.data;
                 const user = users.find((u) => u.username === username && u.password === password);
                 if (user) {
-                    // Đăng nhập thành công, thực hiện chuyển hướng
-                    window.location.href = '/dashboard'; // Chuyển hướng đến trang Dashboard (hoặc bất kỳ trang nào bạn muốn)
+                    onLogin({
+                        name: user.name,
+                        email: user.username,
+                        picture: user.picture,
+                    });
                 } else {
                     setErrorMessage('Incorrect Username or Password');
                 }
@@ -29,7 +32,7 @@ function Login() {
     };
 
     return (
-        <div className="App">
+        <div>
             <h1>Login</h1>
             <form onSubmit={handleLogin}>
                 <label>
@@ -47,6 +50,6 @@ function Login() {
             <p style={{ color: 'red' }}>{errorMessage}</p>
         </div>
     );
-}
+};
 
 export default Login;

@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import React, { useState, useEffect } from 'react';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
@@ -14,11 +14,14 @@ import Avatar from '@mui/material/Avatar';
 import Paper from '@mui/material/Paper';
 
 const drawerWidth = 240;
-const navItems = ['Home', 'Dashboard', 'Contact'];
+const navItems = ['Our Cakes','Contact'];
 
 export default function DrawerAppBar(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
+    const [showProfile, setShowProfile] = useState(false); // Define showProfile state
+    const [userOptionsPosition, setUserOptionsPosition] = useState({ top: 0, left: 0 });
+    const navigate = useNavigate(); // Initialize useNavigate
 
     const handleDrawerToggle = () => {
         setMobileOpen((prevState) => !prevState);
@@ -27,7 +30,7 @@ export default function DrawerAppBar(props) {
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
             <Typography variant="h6" sx={{ my: 2 }}>
-                Football News
+                Cake Store
             </Typography>
             <Divider />
             <List>
@@ -70,8 +73,37 @@ export default function DrawerAppBar(props) {
     const logOut = () => {
         googleLogout();
         setProfile(null);
+        setShowProfile(false); 
         setUserInfoVisible(false);
     };
+
+    const handleOptionClick = (option) => {
+        // Handle logic for each option
+        if (option === 'profile') {
+            if (profile) {
+                navigate('/profile', { state: { picture: profile.picture, name: profile.name, email: profile.email } });
+            } else {
+                navigate('/'); // Redirect to the home page if not signed in
+            }
+        } else if (option === 'dashboard') {
+            if (profile) {
+                navigate('/dashboard');
+            } else {
+                navigate('/'); 
+            }
+        } else if (option === 'logout') {
+            logOut();
+            navigate('/');
+        }
+    };
+
+    useEffect(() => {
+        const avatarElement = document.querySelector('.user-info');
+        if (avatarElement) {
+            const rect = avatarElement.getBoundingClientRect();
+            setUserOptionsPosition({ top: rect.bottom, left: rect.left });
+        }
+    }, [showProfile]);
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -92,50 +124,24 @@ export default function DrawerAppBar(props) {
                         component="div"
                         sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
                     >
-                        Football News
+                        Cake Store
                     </Typography>
                     <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                         {navItems.map((item) => (
                             item === 'Dashboard' && !profile ? null : (
-                                <Link to={item === 'Home' ? '/' : item} key={item}>
+                                <Link to={item === 'Our Cakes' ? '/' : item} key={item}>
                                     <Button sx={{ color: '#fff' }}>{item}</Button>
                                 </Link>
                             )
                         ))}
                     </Box>
-                    {profile ? (
-                            <div className="user-info">
-                                <Avatar
-                                    alt="user image"
-                                    src={profile.picture}
-                                    onClick={() => {
-                                        console.log('Avatar clicked');
-                                        setUserInfoVisible(!userInfoVisible);
-                                    }}
-                                />
-                            </div>
-                        ) : (
-                    <Link style={{marginRight: '8px', marginLeft: '8px'}} to="/login"> 
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            sx={{ color: '#fff' }}
-                        >
-                            Login
-                        </Button>
-                    </Link>
-                    )}
-                    {/* Add "Sign in with Google" button here */}
                     <div className="login-section">
                         {profile ? (
                             <div className="user-info">
                                 <Avatar
                                     alt="user image"
                                     src={profile.picture}
-                                    onClick={() => {
-                                        console.log('Avatar clicked');
-                                        setUserInfoVisible(!userInfoVisible);
-                                    }}
+                                    onClick={() => setShowProfile(!showProfile)}
                                 />
                             </div>
                         ) : (
@@ -171,23 +177,13 @@ export default function DrawerAppBar(props) {
                     {drawer}
                 </Drawer>
             </nav>
-            {userInfoVisible && profile && (
+            {showProfile && (
                 <div className="user-info" style={{ position: 'fixed', top: '10%', right: '2%' }}>
-                    <Paper style={{ width: '250px', padding: '16px' }} elevation={3} className="user-info-dropdown">
-                        <h4 className="welcome-message">{profile.name}</h4>
-                        <p className="email-address">{profile.email}</p>
-                        <div style={{ textAlign: 'right' }} className="logout-button-container">
-                            <button style={{
-                                backgroundColor: 'black',
-                                color: 'white',
-                                padding: '8px 16px',
-                                border: 'none',
-                                cursor: 'pointer'
-                            }} className="logout-button" onClick={logOut}>
-                                Log out
-                            </button>
-                        </div>
-                    </Paper>
+                <Paper style={{ width: '250px', padding: '16px' }} elevation={3} className="user-options">
+                <p onClick={() => handleOptionClick('profile')}>Profile</p>
+                <p onClick={() => handleOptionClick('dashboard')}>Dashboard</p> 
+                <p onClick={() => handleOptionClick('logout')}>Logout</p>
+                </Paper>
                 </div>
             )}
         </Box>

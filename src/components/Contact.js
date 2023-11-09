@@ -1,10 +1,10 @@
 import React from "react";
 
 const contactInfo = {
-    name: "FPT University",
-    email: "daihoc.hcm@fpt.edu.vn",
-    phone: "(028) 7300 5588",
-    address: "Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh",
+    name: "More Than Happy",
+    email: "nhiphm302@gmail.com",
+    phone: "0903312258",
+    address: "S102 Vinhomes Grand Park, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh",
 };
 
 export default function Contact() {

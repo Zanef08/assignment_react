@@ -8,12 +8,14 @@ import Contact from './components/Contact';
 import { Route } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import Detail from './components/Detail';
-import AddStudent from './components/AddStudent';
-import UpdateStudent from './components/UpdateStudent';
+import AddCake from './components/AddCake';
+import UpdateCake from './components/UpdateCake';
 import './App.css';
 import Login from './components/Login'
+import Profile from './components/Profile';
 
 function App() {
+  
   return (
 
     <div>
@@ -30,11 +32,13 @@ function App() {
 
         <Route path='/detail/:id' element={<Detail />}></Route>
 
-        <Route path='/AddStudent' element={<AddStudent />}></Route>
+        <Route path='/AddCake' element={<AddCake />}></Route>
 
-        <Route path='/UpdateStudent/:id' element={<UpdateStudent />}></Route>
+        <Route path='/UpdateCake/:id' element={<UpdateCake />}></Route>
 
         <Route path='/login' element={<Login />}></Route>
+
+        <Route path='/profile' element={<Profile />} />
       </Routes>
 
     </div>

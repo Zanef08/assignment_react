@@ -6,10 +6,10 @@ import { Card, Grid, CardMedia, Typography } from "@mui/material";
 export default function Detail() {
     const { id } = useParams();
     const [APIData, setAPIData] = useState({});
-    const getStudentUrl = `https://65375d0cbb226bb85dd31d49.mockapi.io/api/pe_test/studentManagement/${id}`;
+    const getCakeUrl = `https://654c78cd77200d6ba858e32b.mockapi.io/cake/${id}`;
 
     useEffect(() => {
-        fetch(getStudentUrl)
+        fetch(getCakeUrl)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP status: ${response.status}`);
@@ -20,7 +20,7 @@ export default function Detail() {
                 setAPIData(data);
             })
             .catch((error) => console.log(error.message));
-    }, [getStudentUrl]);
+    }, [getCakeUrl]);
 
     return (
         <div>
@@ -34,7 +34,7 @@ export default function Detail() {
                     <Card sx={{ display: 'flex' }}>
                         <CardMedia
                             component="img"
-                            sx={{ width: '40%', height: 'auto' }} 
+                            sx={{ width: '40%', height: '550px' }} 
                             image={APIData.image}
                             alt={APIData.name}
                         />
@@ -43,16 +43,13 @@ export default function Detail() {
                                 {APIData.name}
                             </Typography>
                             <Typography variant="subtitle1" color="text.secondary">
-                            Date of Birth: {APIData.dateofbirth}
+                            Category: <b>{APIData.category}</b>
                             </Typography>
                             <Typography variant="subtitle1" color="text.secondary">
-                                Gender: {APIData.gender ? "Male" : "Female"}
+                                Price: <b>{APIData.price}</b> 
                             </Typography>
                             <Typography variant="subtitle1" color="text.secondary">
-                                Class: {APIData.class}
-                            </Typography>
-                            <Typography variant="subtitle1" color="text.secondary">
-                            Feedback: {APIData.feedback}
+                                Description: {APIData.description}
                             </Typography>
                         </CardContent>
                     </Card>

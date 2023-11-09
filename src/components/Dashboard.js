@@ -23,11 +23,11 @@ export default function Dashboard() {
     const [open, setOpen] = useState(false);
     const [openDelSucDia, setOpenDelSucDia] = useState(false);
     const [idDelete, setIdDelete] = useState(-1);
-    const getStudentsUrl = 'https://65375d0cbb226bb85dd31d49.mockapi.io/api/pe_test/studentManagement';
-    const deleteStudentsUrl = `https://65375d0cbb226bb85dd31d49.mockapi.io/api/pe_test/studentManagement`;
+    const getCakesUrl = 'https://654c78cd77200d6ba858e32b.mockapi.io/cake';
+    const deleteCakesUrl = `https://654c78cd77200d6ba858e32b.mockapi.io/cake`;
 
     useEffect(() => {
-        loadStudents();
+        loadCakes();
     }, [])
 
     const handleClose = () => {
@@ -36,12 +36,12 @@ export default function Dashboard() {
 
     const handleOk = () => {
         setOpenDelSucDia(false);
-        loadStudents();
+        loadCakes();
     };
 
-    const deleteStudent = () => {
+    const deleteCake = () => {
         setOpen(false);
-        axios.delete(deleteStudentsUrl + `/${idDelete}`)
+        axios.delete(deleteCakesUrl + `/${idDelete}`)
             .then(
                 response => {
                     return response.data;
@@ -57,14 +57,14 @@ export default function Dashboard() {
 
     };
 
-    const loadStudents = () => {
+    const loadCakes = () => {
 
-        axios.get(getStudentsUrl).then(
+        axios.get(getCakesUrl).then(
             response => {
                 return response.data;
             })
             .then(data => {
-                data.sort((a, b) => a.name.localeCompare(b.name, 'en', { sensitivity: 'base' }));
+                data.sort((a, b) => a.id - b.id);
                 setAPIData(data);
             })
             .catch(error => console.log(error.message));
@@ -86,45 +86,43 @@ export default function Dashboard() {
                         <TableRow>
                             <TableCell>ID</TableCell>
                             <TableCell>Name</TableCell>
-                            <TableCell align="left">Date of Birth</TableCell>
+                            <TableCell align="left">Category</TableCell>
                             <TableCell align="left">Image</TableCell>
-                            <TableCell align="left">Gender</TableCell>
-                            <TableCell align="left">Class</TableCell>
-                            <TableCell align="left">Feedback</TableCell>
+                            <TableCell align="left">Price</TableCell>
+                            <TableCell align="left">Description</TableCell>
                             <TableCell align="left">Action</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {APIData.map((student) => (
+                        {APIData.map((cake) => (
                             <TableRow
-                                key={student.id}
+                                key={cake.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row">
-                                    {student.id}
+                                    {cake.id}
                                 </TableCell>
                                 <TableCell component="th" scope="row">
-                                    {student.name}
+                                    {cake.name}
                                 </TableCell>
-                                <TableCell align="left">{student.dateofbirth}</TableCell>
+                                <TableCell align="left">{cake.category}</TableCell>
                                 <TableCell align="right">
 
-                                    <Avatar align="left" alt="Remy Sharp" src={student.image} />
+                                    <Avatar align="left" alt="Remy Sharp" src={cake.image} />
 
                                 </TableCell>
-                                <TableCell align="left">{student.gender ? "Male" : "Female"}</TableCell>
-                                <TableCell align="left">{student.class}</TableCell>
-                                <TableCell align="left">{student.feedback}</TableCell>
+                                <TableCell align="left">{cake.price}</TableCell>
+                                <TableCell align="left">{cake.description}</TableCell>
                                 <TableCell align="left">
                                     <Stack direction="row" spacing={3}>
-                                        <Link to="/AddStudent">
+                                        <Link to="/AddCake">
                                             <IconButton><Icon sx={{ color: blue[500] }}>add_circle</Icon></IconButton>
                                         </Link>
-                                        <Link to={`/UpdateStudent/${student.id}`}>
+                                        <Link to={`/UpdateCake/${cake.id}`}>
                                             <IconButton><Icon sx={{ color: blue[500] }}>update_circle</Icon></IconButton>
                                         </Link>
 
-                                        <IconButton onClick={(e) => { showConfirmDeleteDialog(student.id) }}><Icon sx={{ color: blue[500] }}>delete_circle</Icon></IconButton>
+                                        <IconButton onClick={(e) => { showConfirmDeleteDialog(cake.id) }}><Icon sx={{ color: blue[500] }}>delete_circle</Icon></IconButton>
 
 
                                     </Stack>
@@ -143,17 +141,17 @@ export default function Dashboard() {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
-                    {"Delete Student"}
+                    {"Delete Cake"}
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
                         <Alert severity="warning">
-                            <AlertTitle>Are you sure to delete this student ?</AlertTitle>
+                            <AlertTitle>Are you sure to delete this cake ?</AlertTitle>
                         </Alert>
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={deleteStudent}>Yes</Button>
+                    <Button onClick={deleteCake}>Yes</Button>
                     <Button autoFocus onClick={handleClose}>
                         No
                     </Button>
@@ -172,7 +170,7 @@ export default function Dashboard() {
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
                         <Alert severity="success">
-                            <AlertTitle>Delete Student Successfully</AlertTitle>
+                            <AlertTitle>Delete Cake Successfully</AlertTitle>
                         </Alert>
                     </DialogContentText>
                 </DialogContent>
