@@ -24,9 +24,7 @@ export default function Detail() {
 
     return (
         <Container maxWidth="md" style={{ marginTop: "5%" }}>
-            <Typography variant="h3" align="center" gutterBottom>
-                Cake Details
-            </Typography>
+            <h1 className="font-pages" style={{ fontSize: "40px", textAlign: "center", marginTop: "5%" }}>Cake Detail</h1>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <Card>
