@@ -99,7 +99,7 @@ export default function Dashboard() {
                                     Category: <b>{cake.category}</b>
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary" align="center">
-                                    Price: <b>{cake.price}</b>
+                                    Price: <b>${cake.price}</b>
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary" align="center">
                                     Description: {cake.description}
