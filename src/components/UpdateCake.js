@@ -48,7 +48,7 @@ export default function UpdateCake() {
         enableReinitialize: true,
         initialValues: APIData,
         onSubmit: (values) => {
-            axios.put(`${putCakeUrl}/${cake.id}`, values) 
+            axios.put(`${putCakeUrl}/${cake.id}`, values)
                 .then(
                     response => {
                         return response.data;
@@ -66,6 +66,7 @@ export default function UpdateCake() {
         }),
 
     });
+    const [currentCategory, setCurrentCategory] = useState(APIData.category || "");
 
     return (
         <div style={{ textAlign: 'center', marginTop: '5%' }}>
@@ -88,7 +89,7 @@ export default function UpdateCake() {
                     <Typography variant="caption" align="left" fontWeight="bold" marginBottom="0.2em">Category</Typography>
                     <Select
                         name="category"
-                        value={formik.values.category}
+                        value={formik.values.category || ""}
                         onChange={formik.handleChange}
                         displayEmpty
                         inputProps={{ "aria-label": "Without label" }}

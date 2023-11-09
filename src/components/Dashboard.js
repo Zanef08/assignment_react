@@ -1,24 +1,29 @@
-import React from "react"
-import { useEffect, useState } from "react"
-import { Table, TableHead, TableRow, TableCell, TableBody, IconButton } from "@mui/material";
-import Avatar from '@mui/material/Avatar';
-import Icon from "@mui/material/Icon";
+import React, { useEffect, useState } from "react";
+import {
+    Avatar,
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    IconButton,
+    Paper,
+    Stack,
+    Typography,
+    Grid,
+    Icon
+} from "@mui/material";
 import { blue } from "@mui/material/colors";
-import Stack from "@mui/material/Stack";
-import { Paper, TableContainer } from "@mui/material";
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
-import DialogActions from "@mui/material/DialogActions";
-import axios from "axios";
 import { Link } from "react-router-dom";
-import Button from "@mui/material/Button";
+import axios from "axios";
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 export default function Dashboard() {
-
     const [APIData, setAPIData] = useState([]);
     const [open, setOpen] = useState(false);
     const [openDelSucDia, setOpenDelSucDia] = useState(false);
@@ -28,7 +33,7 @@ export default function Dashboard() {
 
     useEffect(() => {
         loadCakes();
-    }, [])
+    }, []);
 
     const handleClose = () => {
         setOpen(false);
@@ -48,17 +53,14 @@ export default function Dashboard() {
                 })
             .then(data => setOpenDelSucDia(true))
             .catch(error => console.log(error.message));
-
     };
 
     const showConfirmDeleteDialog = (id) => {
         setIdDelete(id);
         setOpen(true);
-
     };
 
     const loadCakes = () => {
-
         axios.get(getCakesUrl).then(
             response => {
                 return response.data;
@@ -68,10 +70,7 @@ export default function Dashboard() {
                 setAPIData(data);
             })
             .catch(error => console.log(error.message));
-
-
     };
-
 
     return (
         <div>
@@ -80,60 +79,44 @@ export default function Dashboard() {
                 textAlign: "center",
                 marginTop: "5%",
             }}>Dashboard</h1>
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>ID</TableCell>
-                            <TableCell>Name</TableCell>
-                            <TableCell align="left">Category</TableCell>
-                            <TableCell align="left">Image</TableCell>
-                            <TableCell align="left">Price</TableCell>
-                            <TableCell align="left">Description</TableCell>
-                            <TableCell align="left">Action</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {APIData.map((cake) => (
-                            <TableRow
-                                key={cake.id}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                <TableCell component="th" scope="row">
-                                    {cake.id}
-                                </TableCell>
-                                <TableCell component="th" scope="row">
+            <div style={{textAlign: 'center'}}>
+            <b>You want to add new Cake?</b>
+            <Link to="/AddCake">
+                <IconButton><Icon sx={{ color: blue[500] }}>add_circle</Icon></IconButton>
+            </Link>
+            </div>
+
+            <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                {APIData.map((cake) => (
+                    <Grid item xs={12} sm={6} md={4} key={cake.id}>
+                        <Card elevation={3} sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                            <Avatar alt="Cake Image" src={cake.image} sx={{ width: 100, height: 100, margin: 'auto' }} />
+                            <CardContent>
+                                <Typography variant="h5" component="div" align="center" style={{ marginTop: '10px' }}>
                                     {cake.name}
-                                </TableCell>
-                                <TableCell align="left">{cake.category}</TableCell>
-                                <TableCell align="right">
-
-                                    <Avatar align="left" alt="Remy Sharp" src={cake.image} />
-
-                                </TableCell>
-                                <TableCell align="left">{cake.price}</TableCell>
-                                <TableCell align="left">{cake.description}</TableCell>
-                                <TableCell align="left">
-                                    <Stack direction="row" spacing={3}>
-                                        <Link to="/AddCake">
-                                            <IconButton><Icon sx={{ color: blue[500] }}>add_circle</Icon></IconButton>
-                                        </Link>
-                                        <Link to={`/UpdateCake/${cake.id}`}>
-                                            <IconButton><Icon sx={{ color: blue[500] }}>update_circle</Icon></IconButton>
-                                        </Link>
-
-                                        <IconButton onClick={(e) => { showConfirmDeleteDialog(cake.id) }}><Icon sx={{ color: blue[500] }}>delete_circle</Icon></IconButton>
-
-
-                                    </Stack>
-
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary" align="center">
+                                    Category: <b>{cake.category}</b>
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary" align="center">
+                                    Price: <b>{cake.price}</b>
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary" align="center">
+                                    Description: {cake.description}
+                                </Typography>
+                            </CardContent>
+                            <CardActions style={{ justifyContent: 'center' }}>
+                                <IconButton component={Link} to={`/UpdateCake/${cake.id}`} color="primary">
+                                    <EditIcon />
+                                </IconButton>
+                                <IconButton onClick={(e) => { showConfirmDeleteDialog(cake.id) }} color="error">
+                                    <DeleteIcon />
+                                </IconButton>
+                            </CardActions>
+                        </Card>
+                    </Grid>
+                ))}
+            </Grid>
             <Dialog
                 open={open}
                 onClose={handleClose}
@@ -145,14 +128,16 @@ export default function Dashboard() {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        <Alert severity="warning">
-                            <AlertTitle>Are you sure to delete this cake ?</AlertTitle>
-                        </Alert>
+                        <Typography variant="body1">
+                            Are you sure to delete this cake?
+                        </Typography>
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={deleteCake}>Yes</Button>
-                    <Button autoFocus onClick={handleClose}>
+                    <Button onClick={deleteCake} color="error">
+                        Yes
+                    </Button>
+                    <Button onClick={handleClose} color="primary" autoFocus>
                         No
                     </Button>
                 </DialogActions>
@@ -169,16 +154,17 @@ export default function Dashboard() {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        <Alert severity="success">
-                            <AlertTitle>Delete Cake Successfully</AlertTitle>
-                        </Alert>
+                        <Typography variant="body1">
+                            Delete Cake Successfully
+                        </Typography>
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleOk}>OK</Button>
+                    <Button onClick={handleOk} color="primary" autoFocus>
+                        OK
+                    </Button>
                 </DialogActions>
             </Dialog>
-
         </div>
-    )
+    );
 }

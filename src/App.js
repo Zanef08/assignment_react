@@ -11,7 +11,6 @@ import Detail from './components/Detail';
 import AddCake from './components/AddCake';
 import UpdateCake from './components/UpdateCake';
 import './App.css';
-import Login from './components/Login'
 import Profile from './components/Profile';
 
 function App() {
@@ -35,8 +34,6 @@ function App() {
         <Route path='/AddCake' element={<AddCake />}></Route>
 
         <Route path='/UpdateCake/:id' element={<UpdateCake />}></Route>
-
-        <Route path='/login' element={<Login />}></Route>
 
         <Route path='/profile' element={<Profile />} />
       </Routes>
