@@ -24,7 +24,7 @@ const Home = () => {
     return (
         <Container>
         <div>
-            <h1 className="font-pages" style={{ fontSize: "40px", textAlign: "center", marginTop: "5%" }}>Our Cakes</h1>
+            <h1 className="font-pages" style={{ fontSize: "40px", textAlign: "center", marginTop: "11%" }}>Our Cakes</h1>
 
             <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 {APIData.map((cake) => (

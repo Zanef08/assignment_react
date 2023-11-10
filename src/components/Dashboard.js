@@ -79,7 +79,7 @@ export default function Dashboard() {
             <h1 className="font-pages" style={{
                 fontSize: "40px",
                 textAlign: "center",
-                marginTop: "5%",
+                marginTop: "11%",
             }}>Dashboard</h1>
             <div style={{textAlign: 'center'}}>
             <b>You want to add new Cake?</b>
