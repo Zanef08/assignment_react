@@ -15,7 +15,8 @@ import {
     Stack,
     Typography,
     Grid,
-    Icon
+    Icon,
+    Container
 } from "@mui/material";
 import { blue } from "@mui/material/colors";
 import { Link } from "react-router-dom";
@@ -73,6 +74,7 @@ export default function Dashboard() {
     };
 
     return (
+        <Container>
         <div>
             <h1 className="font-pages" style={{
                 fontSize: "40px",
@@ -166,5 +168,6 @@ export default function Dashboard() {
                 </DialogActions>
             </Dialog>
         </div>
+        </Container>
     );
 }

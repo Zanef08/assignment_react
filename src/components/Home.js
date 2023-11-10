@@ -1,4 +1,4 @@
-import { CardMedia, Card, CardContent, CardActions, Typography, Button, Grid } from "@mui/material";
+import { CardMedia, Card, CardContent, CardActions, Typography, Button, Grid, Container } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -22,6 +22,7 @@ const Home = () => {
     }, []);
 
     return (
+        <Container>
         <div>
             <h1 className="font-pages" style={{ fontSize: "40px", textAlign: "center", marginTop: "5%" }}>Our Cakes</h1>
 
@@ -45,7 +46,7 @@ const Home = () => {
                                     Category: <b>{cake.category}</b>
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
-                                    Price: <b>{cake.price}</b>
+                                    Price: <b>${cake.price}</b>
                                 </Typography>
                             </CardContent>
                             <CardActions sx={{ justifyContent: 'flex-end' }}>
@@ -60,6 +61,7 @@ const Home = () => {
                 ))}
             </Grid>
         </div>
+        </Container>
     );
 };
 
