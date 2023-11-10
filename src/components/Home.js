@@ -29,7 +29,7 @@ const Home = () => {
             <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 {APIData.map((cake) => (
                     <Grid item xs={12} sm={6} md={4} key={cake.id}>
-                        <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                        <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%'}}>
                             <CardMedia
                                 component="img"
                                 height="350"
@@ -38,7 +38,7 @@ const Home = () => {
                             />
                             <CardContent sx={{ flex: 1 }}>
                                 <Typography variant="h6" component="div" mb={1}>
-                                    <Link to={`detail/${cake.id}`} style={{ textDecoration: 'none', color: '#1976D2' }}>
+                                    <Link to={`detail/${cake.id}`} style={{ textDecoration: 'none', color: 'black' }}>
                                         {cake.name}
                                     </Link>
                                 </Typography>
@@ -51,8 +51,8 @@ const Home = () => {
                             </CardContent>
                             <CardActions sx={{ justifyContent: 'flex-end' }}>
                                 <Link to={`detail/${cake.id}`} style={{ textDecoration: 'none' }}>
-                                    <Button size="small" variant="outlined" color="primary">
-                                        Info
+                                    <Button size="small" sx={{color: '#DB7093'}}>
+                                        <b>Info</b>
                                     </Button>
                                 </Link>
                             </CardActions>

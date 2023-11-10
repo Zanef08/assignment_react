@@ -14,7 +14,7 @@ import Avatar from '@mui/material/Avatar';
 import Paper from '@mui/material/Paper';
 
 const drawerWidth = 240;
-const navItems = ['Our Cakes','Contact'];
+const navItems = ['Our Cakes', 'Contact'];
 
 export default function DrawerAppBar(props) {
     const { window } = props;
@@ -36,9 +36,11 @@ export default function DrawerAppBar(props) {
             <List>
                 {navItems.map((item) => (
                     <ListItem key={item} disablePadding>
-                        <ListItemButton sx={{ textAlign: 'center' }}>
-                            <ListItemText primary={item} />
-                        </ListItemButton>
+                        <Link to={item === 'Our Cakes' ? '/' : item} key={item}>
+                            <ListItemButton sx={{ textAlign: 'center' }}>
+                                <ListItemText primary={item} />
+                            </ListItemButton>
+                        </Link>
                     </ListItem>
                 ))}
             </List>
@@ -73,7 +75,7 @@ export default function DrawerAppBar(props) {
     const logOut = () => {
         googleLogout();
         setProfile(null);
-        setShowProfile(false); 
+        setShowProfile(false);
         setUserInfoVisible(false);
     };
 
@@ -89,7 +91,7 @@ export default function DrawerAppBar(props) {
             if (profile) {
                 navigate('/dashboard');
             } else {
-                navigate('/'); 
+                navigate('/');
             }
         } else if (option === 'logout') {
             logOut();
@@ -108,7 +110,7 @@ export default function DrawerAppBar(props) {
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar component="nav">
+            <AppBar component="nav" sx={{backgroundColor: 'LightPink'}}>
                 <Toolbar>
                     <IconButton
                         color="inherit"
@@ -150,8 +152,7 @@ export default function DrawerAppBar(props) {
                                     className="google-login-button"
                                     onClick={login}
                                     variant="contained"
-                                    color="primary"
-                                    sx={{ color: '#fff' }}
+                                    sx={{ color: '#fff', backgroundColor: '#FF69B4'}}
                                 >
                                     Sign in with Google
                                 </Button>
@@ -179,11 +180,11 @@ export default function DrawerAppBar(props) {
             </nav>
             {showProfile && (
                 <div className="user-info" style={{ position: 'fixed', top: '10%', right: '2%' }}>
-                <Paper style={{ width: '250px', padding: '16px' }} elevation={3} className="user-options">
-                <p onClick={() => handleOptionClick('profile')}>Profile</p>
-                <p onClick={() => handleOptionClick('dashboard')}>Dashboard</p> 
-                <p onClick={() => handleOptionClick('logout')}>Logout</p>
-                </Paper>
+                    <Paper style={{ width: '250px', padding: '16px' }} elevation={3} className="user-options">
+                        <p onClick={() => handleOptionClick('profile')}>Profile</p>
+                        <p onClick={() => handleOptionClick('dashboard')}>Dashboard</p>
+                        <p onClick={() => handleOptionClick('logout')}>Logout</p>
+                    </Paper>
                 </div>
             )}
         </Box>
