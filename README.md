@@ -1,20 +1,26 @@
-React Bakery Website
-Introduction
-The React Bakery website is built on the ReactJS platform, aiming to provide an online shopping experience for various types of sweet pastries. This website not only displays detailed information about each pastry but also integrates a login feature that allows administrators to add, delete, and edit information about the pastries.
+# React Bakery Website
 
-Key Features
-Display Pastry List:
+## Introduction
 
-The homepage showcases a list of pastry types, each accompanied by images and detailed information.
-Users can filter and search for pastries based on criteria such as type, price, etc.
-View Pastry Details:
+The React Bakery website is a ReactJS-powered platform designed to deliver an online shopping experience for a variety of sweet pastries. Beyond displaying detailed information about each pastry, the website incorporates a login feature empowering administrators to seamlessly add, delete, and edit pastry information.
 
-Clicking on a pastry type reveals detailed information, including images, prices, descriptions, and other relevant details.
-Login and Administration:
+## Key Features
 
-The login system allows administrators to log in to manage information about various pastry types.
-Administrators can add new pastries with details such as name, price, description, and images.
-They can delete pastries that are no longer needed or modify information if there are any changes.
-Add, Delete, Edit Functionality:
+### Display Pastry List:
 
-Administrators have the ability to add new pastry types, delete unnecessary ones, or modify information as needed.
+- The homepage presents a comprehensive list of pastry types, each accompanied by images and detailed information.
+- Users have the flexibility to filter and search for pastries based on criteria such as type, price, etc.
+
+### View Pastry Details:
+
+- Clicking on a pastry type reveals a wealth of detailed information, including images, prices, descriptions, and other relevant details.
+
+### Login and Administration:
+
+- The login system grants administrators access to manage information about various pastry types.
+- Administrators can effortlessly add new pastries, providing details such as name, price, description, and images.
+- Pastries that are no longer needed can be deleted, and administrators can modify information if there are any changes.
+
+### Add, Delete, Edit Functionality:
+
+- Administrators possess the capability to add new pastry types, remove unnecessary ones, or modify information as needed.
